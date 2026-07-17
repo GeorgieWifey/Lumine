@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "lumine",
+  "version": "${version}",
+  "name": "Lumine",
+  "description": "Best",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/lumine/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "luna.cats.lumine.client.LumineClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "lumine.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

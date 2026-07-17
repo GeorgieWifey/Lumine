@@ -1,0 +1,19 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "lumine:lunar_logo.png",
+      "height": 8,
+      "ascent": 7,
+      "chars": [
+        "\uE000"
+      ]
+    },
+    {
+      "type": "space",
+      "advances": {
+        "\uE001": 2
+      }
+    }
+  ]
+}
