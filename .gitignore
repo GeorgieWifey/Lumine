@@ -20,6 +20,15 @@ hs_err_pid*
 # Common working directory
 run
 
+# Crash reports
+crash-*.txt
+
+# Logs
+logs/
+
+# VS Code / Eclipse output
+.vscode/
+bin/
 
 Moonlight-main
 

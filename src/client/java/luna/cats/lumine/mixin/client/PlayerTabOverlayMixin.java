@@ -1,18 +1,18 @@
 package luna.cats.lumine.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import java.util.HashMap;
 import java.util.Map;
 import luna.cats.lumine.client.peers.PeerData;
 import luna.cats.lumine.client.peers.PeerRegistry;
 import luna.cats.lumine.client.render.PeerIcon;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import org.spongepowered.asm.mixin.Final;
@@ -22,7 +22,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -74,19 +73,19 @@ public abstract class PlayerTabOverlayMixin {
 		args.set(2, x + ICON_SHIFT);
 	}
 
-	@Redirect(method = "extractRenderState",
+	@ModifyExpressionValue(method = "extractRenderState",
 			at = @At(value = "INVOKE",
-					target = "Lnet/minecraft/client/gui/Font;width(Lnet/minecraft/network/chat/FormattedText;)I"))
-	private int lumine$nameWidth(Font font, FormattedText text) {
-		int width = font.width(text);
-		if (lumine$nameToInfo == null || !(text instanceof Component component))
-			return width;
-		PlayerInfo info = lumine$nameToInfo.get(component.getString());
+					target = "Lnet/minecraft/client/gui/Font;width(Lnet/minecraft/network/chat/FormattedText;)I",
+					ordinal = 0))
+	private int lumine$nameWidth(int original, @Local Component playerName) {
+		if (lumine$nameToInfo == null)
+			return original;
+		PlayerInfo info = lumine$nameToInfo.get(playerName.getString());
 		if (info == null)
-			return width;
+			return original;
 		PeerData data = PeerRegistry.getInstance().get(info.getProfile().id());
 		if (data == null)
-			return width;
-		return width + ICON_SHIFT;
+			return original;
+		return original + ICON_SHIFT;
 	}
 }
