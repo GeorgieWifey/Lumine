@@ -16,11 +16,11 @@ concurrency:
 
 env:
   OPENAI__API_BASE: https://lumine.linacats.top/v1
-  CONFIG__MODEL: openai/gpt-6.1-sol
+  CONFIG__MODEL: openai/gpt-6.2-sol
   CONFIG__FALLBACK_MODELS: '["openai/gpt-6-luna"]'
   CONFIG__CUSTOM_MODEL_MAX_TOKENS: '32000'
   CONFIG__REASONING_EFFORT: medium
-  CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS: '["gpt-6.1-sol", "gpt-6-luna"]'
+  CONFIG__ADDITIONAL_REASONING_EFFORT_MODELS: '["gpt-6.2-sol", "gpt-6-luna"]'
   CONFIG__AI_TIMEOUT: '180'
   CONFIG__NUM_RETRIES: '2'
   GITHUB_ACTION_CONFIG__AUTO_REVIEW: 'true'
